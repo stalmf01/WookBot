@@ -9,7 +9,6 @@ reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
                      client_secret='ub1hAuKYdTLqd1m37BffCuu_BSk',
                      user_agent='eagleeye2218')
 
-
 class MyClient(discord.Client):
     mock = 0
     sent_message = ''
@@ -23,12 +22,11 @@ class MyClient(discord.Client):
         if message.author == self.user:
             return
         if message.content == 'epicroast':
-            choices = ['The epic store can chordle mah ball sack',
-                       'The epic store can lick mah taint',
-                       'The epic store can slob on mah knob',
-                       'The epic store can die in a fire']
-            roast = random.choice(choices)
-            await message.channel.send(roast)
+            roast_word = urbandictionary.random()
+            words = ['']
+            for i in roast_word:
+                words.append(i.word)
+            await message.channel.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
 
         elif message.content == 'mockon':
             self.mock = 1
