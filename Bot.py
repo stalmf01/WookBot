@@ -9,6 +9,7 @@ reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
                      client_secret='ub1hAuKYdTLqd1m37BffCuu_BSk',
                      user_agent='eagleeye2218')
 
+
 class MyClient(discord.Client):
     mock = 0
     sent_message = ''
@@ -23,7 +24,7 @@ class MyClient(discord.Client):
             return
         if message.content == 'epicroast':
             roast_word = urbandictionary.random()
-            words = ['']
+            words = []
             for i in roast_word:
                 words.append(i.word)
             await message.channel.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
@@ -53,7 +54,6 @@ class MyClient(discord.Client):
             subreddit = reddit.subreddit('random')
             for submission in subreddit.hot(limit=1):
                 await message.channel.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
-
 
 
 client = MyClient()
