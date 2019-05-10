@@ -60,7 +60,7 @@ class MyClient(discord.Client):
             embed.add_field(name="epicroast", value="Roasts the epic store", inline=False)
             embed.add_field(name="mockon", value="Makes everything degenerate", inline=False)
             embed.add_field(name="mockoff", value="Saves everyone from the degeneracy", inline=False)
-            embed.add_field(name="cat", value="Gives a cute cat gif to lighten up the mood.", inline=False)
+            #embed.add_field(name="cat", value="Gives a cute cat gif to lighten up the mood.", inline=False)
             embed.add_field(name="randsub", value="Displays a random post from reddit", inline=False)
             embed.add_field(name="helpbot", value="Gives this message", inline=False)
             await message.channel.send(embed=embed)
