@@ -19,7 +19,7 @@ token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
 @bot.event
 async def on_ready():
     print('logged in as ', bot.user.name)
-    game = discord.Game("Bot things")
+    game = discord.Game("?help for Commands")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 """
