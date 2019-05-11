@@ -11,15 +11,15 @@ reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
                      user_agent='eagleeye2218')
 
 # token for test bot
-token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
+# token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
 # token for live bot
-# token = 'NTc2MDgwMjQxOTY2MTg2NDk2.XNZGlA.tFYULqIRGB1JXCcN1ut4w8wQtwY'
+token = 'NTc2MDgwMjQxOTY2MTg2NDk2.XNZGlA.tFYULqIRGB1JXCcN1ut4w8wQtwY'
 
 
 @bot.event
 async def on_ready():
     print('logged in as ', bot.user.name)
-    game = discord.Game("Bot things")
+    game = discord.Game("?help for commands")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 """
