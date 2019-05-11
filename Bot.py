@@ -72,20 +72,17 @@ async def epicroast(ctx):
     await ctx.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
 
 
-@bot.command(description='Returns the top post on a specified sub',
-             name='topsub',
-             breif='test',
-             aliases=['Topsub'])
+@bot.command(description='Returns the top post on a specified sub')
 async def topsub(ctx, sub):
     subreddit = reddit.subreddit(sub)
     for submission in subreddit.top(limit=1):
         await ctx.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
 
-
+"""""
 @bot.command(description='Returns the urban dictionary definition of a word')
 async def meaning(ctx, word_to_define):
     print('hello ', word_to_define)
     await ctx.send('Implementation coming soon')
-
+"""
 
 bot.run(token)
