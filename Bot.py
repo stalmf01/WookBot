@@ -52,7 +52,7 @@ class MyClient(discord.Client):
 
         elif message.content == 'randsub':
             subreddit = reddit.subreddit('random')
-            for submission in subreddit.hot(limit=1):
+            for submission in subreddit.top(limit=1):
                 await message.channel.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
 
         elif message.content == 'helpbot':
