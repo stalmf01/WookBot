@@ -3,23 +3,45 @@ import random
 import praw
 import urbandictionary
 from discord.ext import commands
-bot = commands.Bot(command_prefix='?')
+
+prefix = '?'
+bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
+reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
+                     client_secret='ub1hAuKYdTLqd1m37BffCuu_BSk',
+                     user_agent='eagleeye2218')
+
+# token for test bot
 token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
-mock = 0
-client = discord.Client()
+# token for live bot
+# token = 'NTc2MDgwMjQxOTY2MTg2NDk2.XNZGlA.tFYULqIRGB1JXCcN1ut4w8wQtwY'
 
 
 @bot.event
 async def on_ready():
     print('logged in as ', bot.user.name)
+    game = discord.Game("Bot things")
+    await bot.change_presence(status=discord.Status.online, activity=game)
+
+"""
+@bot.command(description='Mocks everyone')
+async def mock(ctx):
+    if self.mock:
+        self.mock = 0
+        await ctx.send('Mocking disabled')
+    elif not self.mock:
+        self.mock = 1
+        print(mock)
+        await ctx.send('Mocking enabled')
 
 
-@client.event
-async def on_message(ctx):
-    if mock:
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    elif self.mock and not message.content.startswith(prefix):
         count = 0
         sent_message = ''
-        mock_message = str(ctx.content)
+        mock_message = str(message.content)
         for i in mock_message:
             if i.isspace():
                 sent_message += i
@@ -28,88 +50,42 @@ async def on_message(ctx):
             else:
                 sent_message += i.lower()
             count += 1
-        await ctx.delete()
-        await ctx.send(str(ctx.author) + " says, " + sent_message)
+        await message.channel.send(sent_message)
+    else:
+        return
+"""
+
+@bot.command(description='Returns top post from a random sub',
+             aliases=['randomsub'])
+async def randsub(ctx):
+    subreddit = reddit.subreddit('random')
+    for submission in subreddit.top(limit=1):
+        await ctx.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
 
 
-@bot.command()
-async def helpbot(ctx):
-    embed = discord.Embed(title="WookBot", description="A bot of many things. List of commands are:", color=0xeee657)
-    embed.add_field(name="epicroast", value="Roasts the epic store", inline=False)
-    embed.add_field(name="mockon", value="Makes everything degenerate", inline=False)
-    embed.add_field(name="mockoff", value="Saves everyone from the degeneracy", inline=False)
-    embed.add_field(name="cat", value="Gives a cute cat gif to lighten up the mood.", inline=False)
-    embed.add_field(name="randsub", value="Displays a random post from reddit", inline=False)
-    embed.add_field(name="helpbot", value="Gives this message", inline=False)
-    await ctx.send(embed=embed)
+@bot.command(description='Roasts the epic store')
+async def epicroast(ctx):
+    roast_word = urbandictionary.random()
+    words = []
+    for i in roast_word:
+        words.append(i.word)
+    await ctx.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
 
 
-@bot.command()
-async def mockoff(ctx):
-    mock = 0
-    await ctx.send('Mock is now off')
+@bot.command(description='Returns the top post on a specified sub',
+             name='topsub',
+             breif='test',
+             aliases=['Topsub'])
+async def topsub(ctx, sub):
+    subreddit = reddit.subreddit(sub)
+    for submission in subreddit.top(limit=1):
+        await ctx.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
 
 
-@bot.command()
-async def mockon(ctx):
-    mock = 1
-    await ctx.send('Mock is now on')
+@bot.command(description='Returns the urban dictionary definition of a word')
+async def meaning(ctx, word_to_define):
+    print('hello ', word_to_define)
+    await ctx.send('Implementation coming soon')
 
 
 bot.run(token)
-"""
-token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
-reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
-                     client_secret='ub1hAuKYdTLqd1m37BffCuu_BSk',
-                     user_agent='eagleeye2218')
-
-
-class MyClient(discord.Client):
-    mock = 0
-    sent_message = ''
-
-    async def on_ready(self):
-        print('Logged on as', self.user)
-        game = discord.Game("Bot Things")
-        await client.change_presence(status=discord.Status.idle, activity=game)
-
-    async def on_message(self, message):
-        if message.author == self.user:
-            return
-        if message.content == 'epicroast':
-            roast_word = urbandictionary.random()
-            words = []
-            for i in roast_word:
-                words.append(i.word)
-            await message.channel.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
-
-        elif message.content == 'mockon':
-            self.mock = 1
-        elif message.content == 'mockoff':
-            self.mock = 0
-
-        elif self.mock:
-
-            count = 0
-            mock_message = str(message.content)
-            for i in mock_message:
-                if i.isspace():
-                    self.sent_message += i
-                elif count % 2 == 0:
-                    self.sent_message += i.upper()
-                else:
-                    self.sent_message += i.lower()
-                count += 1
-            await message.delete()
-            await message.channel.send(str(message.author) + " says, " + self.sent_message)
-            self.sent_message = ''
-
-        elif message.content == 'randsub':
-            subreddit = reddit.subreddit('random')
-            for submission in subreddit.hot(limit=1):
-                await message.channel.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
-
-
-client = MyClient()
-client.run(token)
-"""
