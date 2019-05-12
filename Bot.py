@@ -22,38 +22,6 @@ async def on_ready():
     game = discord.Game("?help for commands")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
-"""
-@bot.command(description='Mocks everyone')
-async def mock(ctx):
-    if self.mock:
-        self.mock = 0
-        await ctx.send('Mocking disabled')
-    elif not self.mock:
-        self.mock = 1
-        print(mock)
-        await ctx.send('Mocking enabled')
-
-
-@bot.event
-async def on_message(message):
-    if message.author.bot:
-        return
-    elif self.mock and not message.content.startswith(prefix):
-        count = 0
-        sent_message = ''
-        mock_message = str(message.content)
-        for i in mock_message:
-            if i.isspace():
-                sent_message += i
-            elif count % 2 == 0:
-                sent_message += i.upper()
-            else:
-                sent_message += i.lower()
-            count += 1
-        await message.channel.send(sent_message)
-    else:
-        return
-"""
 
 @bot.command(description='Returns top post from a random sub',
              aliases=['randomsub'])
@@ -80,15 +48,14 @@ async def topsub(ctx, sub):
 
 
 @bot.command(description='Returns the urban dictionary definition of a word')
-async def meaning(ctx, word_to_define):
-   # if ctx.valid:
-
-    print('hello ', word_to_define)
+async def define(ctx, word_to_define):
     results = urbandictionary.define(str(word_to_define))
     results_definitions = []
+    results_examples = []
     for i in results:
         results_definitions.append(i.definition)
-    await ctx.send(random.choice(results_definitions))
+        results_examples.append(i.example)
+    await ctx.send(results_definitions[0] + '\n' + results_examples[0])
 
 
 bot.run(token)
