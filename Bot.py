@@ -13,17 +13,13 @@ reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
 # token for test bot
 token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
 # token for live bot
-#token = 'NTc2MDgwMjQxOTY2MTg2NDk2.XNZGlA.tFYULqIRGB1JXCcN1ut4w8wQtwY'
+# token = 'NTc2MDgwMjQxOTY2MTg2NDk2.XNZGlA.tFYULqIRGB1JXCcN1ut4w8wQtwY'
 
 
 @bot.event
 async def on_ready():
     print('logged in as ', bot.user.name)
-<<<<<<< HEAD
-    game = discord.Game("?help for Commands")
-=======
     game = discord.Game("?help for commands")
->>>>>>> master
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 """
@@ -82,11 +78,17 @@ async def topsub(ctx, sub):
     for submission in subreddit.top(limit=1):
         await ctx.send('subreddit   ' + subreddit.url + '\n' + submission.title + '\n' + submission.url)
 
-"""""
+
 @bot.command(description='Returns the urban dictionary definition of a word')
 async def meaning(ctx, word_to_define):
+   # if ctx.valid:
+
     print('hello ', word_to_define)
-    await ctx.send('Implementation coming soon')
-"""
+    results = urbandictionary.define(str(word_to_define))
+    results_definitions = []
+    for i in results:
+        results_definitions.append(i.definition)
+    await ctx.send(random.choice(results_definitions))
+
 
 bot.run(token)
