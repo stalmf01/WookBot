@@ -1,8 +1,11 @@
 import discord
+import asyncio
 import random
 import praw
 import urbandictionary
 from discord.ext import commands
+from datetime import datetime
+import Birthday
 
 prefix = '?'
 
@@ -17,6 +20,31 @@ bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
 reddit = praw.Reddit(client_id=reddit_id,
                      client_secret=reddit_secret,
                      user_agent='eagleeye2218')
+birthday_num = 9
+birthdays = Birthday(birthday_num)
+
+async def birthday():
+    await bot.wait_until_ready()
+    while True:
+        now = datetime.now()
+        min = now.minute
+        sec = now.second
+        print(now)
+        print(bot.users)
+        while sec != 0 or min % 15 != 0:
+            await asyncio.sleep(1)
+            now = datetime.now()
+            min = now.minute
+            sec = now.second
+            print(now)
+        await asyncio.sleep(1)
+        print(bot.user())
+        for user in bot.user():
+            if birthdays.get_day(user) == now.day and birthdays.get_month(user) == now.month:
+                bot.get_channel()
+
+
+
 
 
 @bot.event
@@ -24,6 +52,7 @@ async def on_ready():
     print('logged in as ', bot.user.name)
     game = discord.Game("?help for commands")
     await bot.change_presence(status=discord.Status.online, activity=game)
+    await birthday()
 
 
 @bot.command(description='Returns top post from a random sub',
