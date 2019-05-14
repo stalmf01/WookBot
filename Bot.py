@@ -5,13 +5,19 @@ import urbandictionary
 from discord.ext import commands
 
 prefix = '?'
+tokens_file = open('Tokens.txt', 'r')
+token = tokens_file.readline().strip()
+
+reddit_secret = tokens_file.readline().strip()
+reddit_id = tokens_file.readline().strip()
+tokens_file.close()
+
 bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
-reddit = praw.Reddit(client_id='Q8zRcB6y_nbgjQ',
-                     client_secret='ub1hAuKYdTLqd1m37BffCuu_BSk',
+
+reddit = praw.Reddit(client_id=reddit_id,
+                     client_secret=reddit_secret,
                      user_agent='eagleeye2218')
 
-# token for test bot
-token = 'NTc2NDM3MDYyNTA1NTk0ODgw.XNWfNQ.bpZrmbUO3ZkFluq69yGVH9uO4bk'
 # token for live bot
 # token = 'NTc2MDgwMjQxOTY2MTg2NDk2.XNZGlA.tFYULqIRGB1JXCcN1ut4w8wQtwY'
 
