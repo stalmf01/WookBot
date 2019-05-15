@@ -44,9 +44,6 @@ async def birthday():
                 bot.get_channel()
 
 
-
-
-
 @bot.event
 async def on_ready():
     print('logged in as ', bot.user.name)
