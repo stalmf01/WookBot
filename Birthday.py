@@ -1,6 +1,6 @@
 
 
-class Birthday:
+class BirthdayList:
     month = 0
     day = 0
     birthday_days = {}

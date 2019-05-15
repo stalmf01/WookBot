@@ -21,16 +21,15 @@ reddit = praw.Reddit(client_id=reddit_id,
                      client_secret=reddit_secret,
                      user_agent='eagleeye2218')
 birthday_num = 9
-birthdays = Birthday(birthday_num)
+
 
 async def birthday():
     await bot.wait_until_ready()
+    birthdays = Birthday
     while True:
         now = datetime.now()
         min = now.minute
         sec = now.second
-        print(now)
-        print(bot.users)
         while sec != 0 or min % 15 != 0:
             await asyncio.sleep(1)
             now = datetime.now()
@@ -41,10 +40,9 @@ async def birthday():
         print(bot.user())
         for user in bot.user():
             if birthdays.get_day(user) == now.day and birthdays.get_month(user) == now.month:
-                bot.get_channel()
-
-
-
+                channel = bot.get_channel(576443791091826708)
+                birthday_boi = user.name
+                await channel.send('@everyone happy birthday ' + birthday_boi)
 
 
 @bot.event
