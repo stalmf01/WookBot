@@ -4,20 +4,19 @@ import random
 import praw
 import urbandictionary
 from discord.ext import commands
-from datetime import datetime
-import Birthday
 
 
 prefix = '?'
+with open('Tokens.txt','r') as tokens_file:
+    token = tokens_file.readline().strip()
+    reddit_secret = tokens_file.readline().strip()
+    reddit_id = tokens_file.readline().strip()
 
-tokens_file = open('Tokens.txt', 'r')
-token = tokens_file.readline().strip()
-reddit_secret = tokens_file.readline().strip()
-reddit_id = tokens_file.readline().strip()
-tokens_file.close()
 
+extensions = ['ElviraBot', 'Birthday']
 bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
-bot.load_extension('ElviraBot')
+for extension in extensions:
+    bot.load_extension(extension)
 
 
 reddit = praw.Reddit(client_id=reddit_id,
@@ -25,7 +24,7 @@ reddit = praw.Reddit(client_id=reddit_id,
                      user_agent='eagleeye2218')
 birthday_num = 9
 
-
+"""
 async def birthday():
     await bot.wait_until_ready()
     birthdays = Birthday
@@ -46,6 +45,7 @@ async def birthday():
                 channel = bot.get_channel(576443791091826708)
                 birthday_boi = user.name
                 await channel.send('@everyone happy birthday ' + birthday_boi)
+"""
 
 
 @bot.event
@@ -53,7 +53,7 @@ async def on_ready():
     print('logged in as ', bot.user.name)
     game = discord.Game("?help for commands")
     await bot.change_presence(status=discord.Status.online, activity=game)
-    await birthday()
+#    await birthday()
 
 
 @bot.command(description='Returns top post from a random sub',
