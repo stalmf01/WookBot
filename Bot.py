@@ -7,6 +7,7 @@ from discord.ext import commands
 from datetime import datetime
 import Birthday
 
+
 prefix = '?'
 
 tokens_file = open('Tokens.txt', 'r')
@@ -16,6 +17,8 @@ reddit_id = tokens_file.readline().strip()
 tokens_file.close()
 
 bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
+bot.load_extension('ElviraBot')
+
 
 reddit = praw.Reddit(client_id=reddit_id,
                      client_secret=reddit_secret,
