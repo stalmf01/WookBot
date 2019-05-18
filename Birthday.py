@@ -96,7 +96,5 @@ class BirthdayList(commands.Cog):
         await ctx.send(embed)
 
 
-
-
 def setup(bot):
     bot.add_cog(BirthdayList(bot))
