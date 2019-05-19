@@ -3,12 +3,12 @@ from discord.ext import commands
 
 
 prefix = '?'
-with open('Tokens.txt','r') as tokens_file:
+with open('Tokens.txt', 'r') as tokens_file:
     token = tokens_file.readline().strip()
 
-extensions = ['ElviraBot', 'Birthday', 'EpicRoast', 'Subs']
 bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
 
+extensions = ['ElviraBot', 'Birthday', 'EpicRoast', 'Subs']
 for extension in extensions:
     bot.load_extension(extension)
 

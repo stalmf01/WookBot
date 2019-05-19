@@ -6,7 +6,7 @@ class RedditSubs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         with open('Tokens.txt', 'r') as tokens_file:
-            token = tokens_file.readline().strip()
+            next(tokens_file)
             reddit_secret = tokens_file.readline().strip()
             reddit_id = tokens_file.readline().strip()
         self.reddit = praw.Reddit(client_id=reddit_id, client_secret=reddit_secret, user_agent='eagleeye2218')
