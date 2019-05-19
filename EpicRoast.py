@@ -25,5 +25,6 @@ class Roast(commands.Cog):
             results_examples.append(i.example)
         await ctx.send(results_definitions[0] + '\n' + results_examples[0])
 
+
 def setup(bot):
     bot.add_cog(Roast(bot))

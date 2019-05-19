@@ -9,12 +9,9 @@ class RedditSubs(commands.Cog):
             token = tokens_file.readline().strip()
             reddit_secret = tokens_file.readline().strip()
             reddit_id = tokens_file.readline().strip()
-        self.reddit = praw.Reddit(client_id=reddit_id,
-                             client_secret=reddit_secret,
-                             user_agent='eagleeye2218')
+        self.reddit = praw.Reddit(client_id=reddit_id, client_secret=reddit_secret, user_agent='eagleeye2218')
 
-    @commands.command(description='Returns top post from a random sub',
-                 aliases=['randomsub'])
+    @commands.command(description='Returns top post from a random sub', aliases=['randomsub'])
     async def randsub(self, ctx):
         subreddit = self.reddit.subreddit('random')
         for submission in subreddit.top(limit=1):

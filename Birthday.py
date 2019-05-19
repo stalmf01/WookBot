@@ -76,10 +76,10 @@ class BirthdayList(commands.Cog):
 
     @commands.command()
     async def get_birthday(self, ctx):
-        author = ctx.message.author
-        if str(author) in self.users:
-            await ctx.send('your birthday is on ' + self.birthday_months[str(author)] + ' '
-                           + self.birthday_days[str(author)])
+        author = str(ctx.message.author.id)
+        if author in self.users:
+            await ctx.send('your birthday is on ' + self.birthday_months[author] + ' '
+                           + self.birthday_days[author])
         else:
             await ctx.send('your birthday is not on the list type ?addbirthday month day to add you birthday')
 
@@ -90,7 +90,7 @@ class BirthdayList(commands.Cog):
             for user in self.users:
                 person = self.bot.get_user(int(user))
                 if member == person:
-                    embed.add_field(name=person.display_name,value=str(self.get_month(user)) + ' '
+                    embed.add_field(name=person.display_name, value=str(self.get_month(user)) + ' '
                                     + str(self.get_day(user)))
         await ctx.send(embed=embed)
 
