@@ -1,14 +1,37 @@
 import discord
+import random
+from _datetime import datetime
 from discord.ext import commands
 
 
 class ElviraCog(commands.Cog):
+    event_flag = 0
+
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def test(self, ctx):
-        await ctx.send("it works")
+        await ctx.send("it's a me")
+
+    @commands.command(description='Adds event to event calendar:')
+    async def schedule(self, ctx, event, month, day, time):
+        print('scheduling')
+        await ctx.send('event added')
+
+    @commands.command()
+    async def advice(self,ctx):
+        choices = []
+
+        with open('advice.txt', 'r') as advice_file:
+            for line in advice_file:
+                choices.append(line)
+
+            await ctx.send(random.choice(choices))
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('Upcoming event:')
 
 
 def setup(bot):
