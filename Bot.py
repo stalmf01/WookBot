@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 
-prefix = '?'
+prefix = '!'
 with open('Tokens.txt', 'r') as tokens_file:
     token = tokens_file.readline().strip()
 
