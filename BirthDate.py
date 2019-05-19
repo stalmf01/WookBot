@@ -1,4 +1,5 @@
 class UsersBirthdays:
+    celebrated = 0
 
     def __init__(self, guild, user, channel, display_name, month, day):
         self.guildid = str(guild)
@@ -14,10 +15,16 @@ class UsersBirthdays:
                            + ' ' + self. month + ' ' + self.day + '\n')
 
     def get_day(self):
-        return self.day
+        return int(self.day)
 
     def get_month(self):
-        return self.month
+        return int(self.month)
 
     def get_userid(self):
-        return self.userid
+        return int(self.userid)
+
+    def get_guild(self):
+        return int(self.guildid)
+
+    def set_celebrated(self, date):
+        self.celebrated = date
