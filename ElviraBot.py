@@ -11,15 +11,6 @@ class ElviraCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def test(self, ctx):
-        await ctx.send("it's a me")
-
-    @commands.command(description='Adds event to event calendar:')
-    async def schedule(self, ctx, event, month, day, time):
-        print('scheduling')
-        await ctx.send('event added')
-
-    @commands.command()
     async def advice(self, ctx):
         choices = []
 
