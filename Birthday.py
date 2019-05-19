@@ -45,7 +45,7 @@ class BirthdayList(commands.Cog):
                                 user.set_celebrated(now.year)
                                 await channel.send('@everyone happy birthday ' + user.display_name)
 
-    @commands.command()
+    @commands.command(description='adds your birthday to the list to be celebrated')
     async def addbirthday(self, ctx, month, day):
         if int(month) > 12 or int(month) < 1:
             await ctx.send('Invalid number for month')
@@ -71,7 +71,7 @@ class BirthdayList(commands.Cog):
                 return
         await ctx.send('something went wrong')
 
-    @commands.command()
+    @commands.command(description='checks if you are on the birthday list')
     async def get_birthday(self, ctx):
         author = str(ctx.message.author.id)
         for user in self.users:
@@ -80,7 +80,7 @@ class BirthdayList(commands.Cog):
                 return
         await ctx.send('your birthday is not on the list type ?addbirthday month day to add you birthday')
 
-    @commands.command()
+    @commands.command(description='returns all the birthdays in this guild')
     async def get_birthdays(self, ctx):
         embed = discord.Embed(title='list of birthdays in the guild')
         for member in ctx.guild.members:
