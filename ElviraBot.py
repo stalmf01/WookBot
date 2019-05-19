@@ -20,7 +20,7 @@ class ElviraCog(commands.Cog):
         await ctx.send('event added')
 
     @commands.command()
-    async def advice(self,ctx):
+    async def advice(self, ctx):
         choices = []
 
         with open('advice.txt', 'r') as advice_file:
