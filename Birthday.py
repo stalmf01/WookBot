@@ -85,15 +85,14 @@ class BirthdayList(commands.Cog):
 
     @commands.command()
     async def get_birthdays(self, ctx):
-        embed = discord.Embed
-        embed.title = 'Birthday lists in this guild'
+        embed = discord.Embed(title='list of birthdays in the guild')
         for member in ctx.guild.members:
             for user in self.users:
                 person = self.bot.get_user(int(user))
                 if member == person:
-                    embed.add_field(person.display_name + ' ' + str(self.get_month(user)) + ' '
+                    embed.add_field(name=person.display_name,value=str(self.get_month(user)) + ' '
                                     + str(self.get_day(user)))
-        await ctx.send(embed)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
