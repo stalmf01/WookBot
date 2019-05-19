@@ -2,6 +2,7 @@ from discord.ext import commands
 from datetime import datetime
 import asyncio
 import discord
+import BirthDate
 
 
 class BirthdayList(commands.Cog):
@@ -15,11 +16,14 @@ class BirthdayList(commands.Cog):
         with open('Birthdays.txt', 'r') as birthday_file:
             for line in birthday_file:
                 words = line.split(' ')
-                user = words[0]
-                month = words[1]
-                day = words[2]
-                self.birthday_days[user] = day
-                self.birthday_months[user] = month
+                guild = words[0]
+                user = words[1]
+                channel = words[2]
+                display_name = words[3]
+                month = words[4]
+                day = words[5]
+                user = BirthDate.UsersBirthdays(guild=guild, user=user, channel=channel, display_name=display_name,
+                                                month=month, day=day)
                 self.users.append(user)
         self.bot = bot
 
@@ -34,6 +38,7 @@ class BirthdayList(commands.Cog):
     def get_month(self, user):
         return int(self.birthday_months[user])
 
+    # need to change to object list
     async def birthday(self):
         await self.bot.wait_until_ready()
         birthday_flag = 0
@@ -64,25 +69,32 @@ class BirthdayList(commands.Cog):
             return
 
         author = str(ctx.message.author.id)
-        if author not in self.users:
-            self.users.append(author)
-            self.birthday_days[author] = day
-            self.birthday_months[author] = month
-            with open('Birthdays.txt', 'a') as birthday:
-                birthday.write('\n' + author + ' ' + month + ' ' + day)
-            await ctx.send('you have been added to the birthday list')
-        else:
-            await ctx.send('you are already on the birthday list')
+        for user in self.users:
+            if author == user.userid:
+                await ctx.send('you are already on the birthday list')
+                return
+
+        user = BirthDate.UsersBirthdays(guild=ctx.message.author.guild, user=ctx.author.id,
+                                        channel='general', display_name=ctx.message.author.display_name,
+                                        month=month, day=day)
+        self.users.append(user)
+        for user in self.users:
+            if user.get_userid() == author:
+                user.write_to_file()
+                await ctx.send('you have been added to the birthday list')
+                return
+        await ctx.send('something went wrong')
 
     @commands.command()
     async def get_birthday(self, ctx):
         author = str(ctx.message.author.id)
-        if author in self.users:
-            await ctx.send('your birthday is on ' + self.birthday_months[author] + ' '
-                           + self.birthday_days[author])
-        else:
-            await ctx.send('your birthday is not on the list type ?addbirthday month day to add you birthday')
+        for user in self.users:
+            if author == user.userid:
+                await ctx.send('your birthday is on ' + user.month + ' ' + user.day)
+                return
+        await ctx.send('your birthday is not on the list type ?addbirthday month day to add you birthday')
 
+    # look at this command
     @commands.command()
     async def get_birthdays(self, ctx):
         embed = discord.Embed(title='list of birthdays in the guild')
