@@ -11,7 +11,7 @@ class BirthdayList(commands.Cog):
     def __init__(self, bot):
         with open('Birthdays.txt', 'r') as birthday_file:
             for line in birthday_file:
-                words = line.split(' ')
+                words = line.split(',')
                 guild = words[0]
                 user = words[1]
                 channel = words[2]
