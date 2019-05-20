@@ -14,7 +14,7 @@ class ElviraCog(commands.Cog):
         with open('advice.txt', 'r') as advice_file:
             for line in advice_file:
                 self.choices.append(line)
-    """""
+    """
     @commands.command(description='Adds event to event calendar:')
     async def schedule(self, ctx, event, month, day, time):
         print('scheduling')
@@ -23,6 +23,12 @@ class ElviraCog(commands.Cog):
     @commands.command()
     async def advice(self, ctx):
         await ctx.send(random.choice(self.choices))
+    """
+    #@commands.command()
+    #async def add_advice(self, ctx, advice):
+    #   
+    #   await ctx.send('Thank you for the advice!')
+    """
 
     @commands.Cog.listener()
     async def on_ready(self):
