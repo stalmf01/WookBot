@@ -11,8 +11,8 @@ class UsersBirthdays:
 
     def write_to_file(self):
         with open('Birthdays.txt', 'a') as birthday:
-            birthday.write(self.guildid + ' ' + self.userid + ' ' + self.channelid + ' ' + self.display_name
-                           + ' ' + self. month + ' ' + self.day + '\n')
+            birthday.write(self.guildid + ',' + self.userid + ',' + self.channelid + ',' + self.display_name
+                           + ',' + self. month + ',' + self.day + '\n')
 
     def get_day(self):
         return int(self.day)
