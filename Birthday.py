@@ -45,6 +45,21 @@ class BirthdayList(commands.Cog):
                                 user.set_celebrated(now.year)
                                 await channel.send('@everyone happy birthday ' + user.display_name)
 
+    @commands.command()
+    async def celebrate(self, ctx):
+        now = datetime.now()
+        happy_birthday = ["Happy birthday to you! Happy birthday to you!"]
+        pic = discord.File('BirthdayPic.jpg')
+        fail = 1
+        for user in self.users:
+            if user.get_day() == now.day and user.get_month() == now.month and \
+                    self.bot.get_guild(user.get_guild()) == ctx.guild:
+                fail = 0
+                for word in happy_birthday:
+                    await ctx.send(tts=True, content=word, file=pic)
+        if fail:
+            await ctx.send("no birthdays today in this guild")
+
     @commands.command(description='adds your birthday to the list to be celebrated')
     async def addbirthday(self, ctx, month, day):
         if int(month) > 12 or int(month) < 1:
