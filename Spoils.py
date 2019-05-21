@@ -8,8 +8,7 @@ class Spoiler(commands.Cog):
     earliest_day = 0
     earliest_month = 0
     earliest_year = 0
-    earliest_hour = 0
-    earliest_min = 0
+    earliest_total_time = 0
     month_dict = {
                 "Janurary": 1,
                 "Febuary": 2,
@@ -22,7 +21,6 @@ class Spoiler(commands.Cog):
         self.bot = bot
         self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
         self.entry = self.spoiler_feed.entries
-        print(self.entry)
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -42,16 +40,17 @@ class Spoiler(commands.Cog):
                 time = unparsed_date[4].split(':')
                 hour = int(time[0])
                 min = int(time[1])
+                sec = int(time[2])
+                total_time = hour*360 + min*60 + sec
                 if month >= self.earliest_month and day >= self.earliest_day and year >= self.earliest_year \
-                    and hour >= self.earliest_hour and min >= self.earliest_min:
+                        and total_time >= self.earliest_total_time:
                     self.earliest_day = day
                     self.earliest_month = month
                     self.earliest_year = year
-                    self.earliest_hour = hour
-                    self.earliest_min = min + 1
+                    self.earliest_total_time = total_time
                     channel = self.bot.get_channel(532305526969860096)
                     await channel.send(spoil.link)
-            await asyncio.sleep(1)
+            await asyncio.sleep(50)
     """""
     @commands.command()
     async def spoilies(self, ctx):
