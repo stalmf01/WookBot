@@ -47,7 +47,7 @@ class Spoiler(commands.Cog):
                     self.earliest_day = day
                     self.earliest_month = month
                     self.earliest_year = year
-                    self.earliest_total_time = total_time
+                    self.earliest_total_time = total_time+1
                     channel = self.bot.get_channel(532305526969860096)
                     await channel.send(spoil.link)
             await asyncio.sleep(50)
