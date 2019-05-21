@@ -49,7 +49,7 @@ class Spoiler(commands.Cog):
                     self.earliest_year = year
                     self.earliest_hour = hour
                     self.earliest_min = min + 1
-                    channel = self.bot.get_channel(576436682879008780)
+                    channel = self.bot.get_channel(532305526969860096)
                     await channel.send(spoil.link)
             await asyncio.sleep(1)
     """""
