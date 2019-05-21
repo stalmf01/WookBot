@@ -52,13 +52,13 @@ class Spoiler(commands.Cog):
                     channel = self.bot.get_channel(576436682879008780)
                     await channel.send(spoil.link)
             await asyncio.sleep(1)
-
+    """""
     @commands.command()
     async def spoilies(self, ctx):
         for spoil in self.entry:
             await ctx.send(spoil.published)
             print(spoil.published)
-
+    """
 
 def setup(bot):
     bot.add_cog(Spoiler(bot))
