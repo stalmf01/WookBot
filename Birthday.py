@@ -55,8 +55,7 @@ class BirthdayList(commands.Cog):
             if user.get_day() == now.day and user.get_month() == now.month and \
                     self.bot.get_guild(user.get_guild()) == ctx.guild:
                 fail = 0
-                for word in happy_birthday:
-                    await ctx.send(tts=True, content=word, file=pic)
+                await ctx.send(tts=True, content=happy_birthday, file=pic)
         if fail:
             await ctx.send("no birthdays today in this guild")
 
