@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class Spoiler(commands.Cog):
-    earliest_date = datetime(year=2019, month=5, day=22)
+    earliest_date = datetime(year=2019, month=5, day=22, hour=19, minute=15)
     month_dict = {
                 "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6,
                 "July": 7, "August": 8, "September": 9, "October": 10, "November": 11, "December": 12
@@ -24,26 +24,30 @@ class Spoiler(commands.Cog):
     async def feed_poll(self):
         await self.bot.wait_until_ready()
         while True:
-            self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
-            self.entry = self.spoiler_feed.entries[:10]
-            index = 9
-            while index >= 0:
-                unparsed_date = self.entry[index].published.split()
-                day = int(unparsed_date[1])
-                month = self.month_dict[unparsed_date[2]]
-                year = int(unparsed_date[3])
-                time = unparsed_date[4].split(':')
-                hour = int(time[0])
-                min = int(time[1])
-                sec = int(time[2])
-                date = datetime(year=year, month=month, day=day, hour=hour, minute=min, second=sec)
+            now = datetime.now()
+            await asyncio.sleep(1)
+            print(now.minute % 2)
+            if now.minute % 3 == 0:
+                print("here")
+                self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
+                self.entry = self.spoiler_feed.entries[:10]
+                index = 9
+                while index >= 0:
+                    unparsed_date = self.entry[index].published.split()
+                    day = int(unparsed_date[1])
+                    month = self.month_dict[unparsed_date[2]]
+                    year = int(unparsed_date[3])
+                    time = unparsed_date[4].split(':')
+                    hour = int(time[0])
+                    min = int(time[1])
+                    sec = int(time[2])
+                    date = datetime(year=year, month=month, day=day, hour=hour, minute=min, second=sec)
+                    if date > self.earliest_date:
+                        self.earliest_date = date
+                        channel = self.bot.get_channel(532305526969860096)
+                        #await channel.send(self.entry[index].link)
+                    index -= 1
 
-                if date > self.earliest_date:
-                    self.earliest_date = date
-                    channel = self.bot.get_channel(532305526969860096)
-                    await channel.send(self.entry[index].link)
-                index -= 1
-            await asyncio.sleep(50)
     """""
     @commands.command()
     async def spoilies(self, ctx):
