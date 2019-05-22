@@ -6,18 +6,7 @@ from datetime import datetime
 
 
 class Spoiler(commands.Cog):
-    earliest_day = 0
-    earliest_month = 0
-    earliest_year = 0
-    earliest_total_time = 0
     earliest_date = datetime(year=2019, month=5, day=22)
-    month_dict = {
-                "Janurary": 1,
-                "Febuary": 2,
-                "March": 3,
-                "April": 4,
-                "May": 5
-                }
 
     def __init__(self, bot):
         self.bot = bot
