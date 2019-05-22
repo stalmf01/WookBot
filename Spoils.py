@@ -33,7 +33,7 @@ class Spoiler(commands.Cog):
         while True:
             self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
             self.entry = self.spoiler_feed.entries[:10]
-            print(self.entry[0])
+            print(self.entry[0].updated_parsed)
             index = 9
             while index >= 0:
                 unparsed_date = self.entry[index].published.split()
