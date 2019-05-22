@@ -26,9 +26,7 @@ class Spoiler(commands.Cog):
         while True:
             now = datetime.now()
             await asyncio.sleep(1)
-            print(now.minute % 2)
             if now.minute % 3 == 0:
-                print("here")
                 self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
                 self.entry = self.spoiler_feed.entries[:10]
                 index = 9
@@ -45,7 +43,7 @@ class Spoiler(commands.Cog):
                     if date > self.earliest_date:
                         self.earliest_date = date
                         channel = self.bot.get_channel(532305526969860096)
-                        #await channel.send(self.entry[index].link)
+                        await channel.send(self.entry[index].link)
                     index -= 1
 
     """""
