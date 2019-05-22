@@ -45,7 +45,7 @@ class Spoiler(commands.Cog):
 
                 if date > self.earliest_date:
                     self.earliest_date = date
-                    channel = self.bot.get_channel(576436682879008780)
+                    channel = self.bot.get_channel(532305526969860096)
                     await channel.send(self.entry[index].link)
                 index -= 1
             await asyncio.sleep(50)
