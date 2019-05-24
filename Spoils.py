@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class Spoiler(commands.Cog):
-    earliest_date = datetime(year=2019, month=5, day=22, hour=19, minute=15)
+    earliest_date = datetime(year=2019, month=5, day=24, hour=17, minute=30)
     month_dict = {
                 "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6,
                 "July": 7, "August": 8, "September": 9, "October": 10, "November": 11, "December": 12
