@@ -16,16 +16,16 @@ class Roast(commands.Cog):
         await ctx.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
 
     @commands.command(description='Returns the urban dictionary definition of a word')
-    async def define(self, ctx, word_to_define, index=0):
+    async def define(self, ctx, word_to_define, index=1):
         results = urbandictionary.define(str(word_to_define))
         results_definitions = []
         results_examples = []
         for i in results:
             results_definitions.append(i.definition)
             results_examples.append(i.example)
-        if index >= len(results_definitions):
-            index = 0
-        await ctx.send(results_definitions[index] + '\n' + results_examples[index])
+        if index >= len(results_definitions) or index < 1:
+            index = 1
+        await ctx.send(results_definitions[index-1] + '\n' + results_examples[index-1])
 
 
 def setup(bot):
