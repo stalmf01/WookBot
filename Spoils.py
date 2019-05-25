@@ -15,7 +15,7 @@ class Spoiler(commands.Cog):
         self.bot = bot
         self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
         self.entry = self.spoiler_feed.entries
-        self.earliest_date = datetime.now()
+        self.earliest_date = datetime(year=2019, month=5, day=24, hour=23)
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -32,7 +32,6 @@ class Spoiler(commands.Cog):
                 index = 9
                 while index >= 0:
                     unparsed_date = self.entry[index].published.split()
-                    print(unparsed_date)
                     day = int(unparsed_date[1])
                     month = self.month_dict[unparsed_date[2]]
                     year = int(unparsed_date[3])
@@ -40,14 +39,7 @@ class Spoiler(commands.Cog):
                     hour = int(time[0])
                     min = int(time[1])
                     sec = int(time[2])
-                    print(year)
-                    print(month)
-                    print(day)
-                    print(hour)
-                    print(min)
-                    print(self.earliest_date)
                     date = datetime(year=year, month=month, day=day, hour=hour, minute=min, second=sec)
-                    print(date)
                     if date > self.earliest_date:
                         self.earliest_date = date
                         for guild in self.bot.guilds:
