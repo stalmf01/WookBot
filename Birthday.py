@@ -35,7 +35,7 @@ class BirthdayList(commands.Cog):
             now = datetime.now()
             hour = now.hour
             await asyncio.sleep(50)
-            if hour == 8:
+            if hour == 0:
                 for user in self.users:
                     if user.get_day() == now.day and user.get_month() == now.month and user.celebrated != now.year:
                         guild = self.bot.get_guild(user.get_guild())

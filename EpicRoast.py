@@ -15,6 +15,7 @@ class Roast(commands.Cog):
             words.append(i.word)
         await ctx.send('The epic store can ' + random.choice(words) + ' mah ' + random.choice(words))
 
+    # doesnt work with spaces
     @commands.command(description='Returns the urban dictionary definition of a word')
     async def define(self, ctx, word_to_define, index=1):
         results = urbandictionary.define(str(word_to_define))
