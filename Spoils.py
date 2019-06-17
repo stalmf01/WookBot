@@ -15,7 +15,7 @@ class Spoiler(commands.Cog):
         self.bot = bot
         self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
         self.entry = self.spoiler_feed.entries
-        self.earliest_date = datetime(year=2019, month=5, day=24, hour=23)
+        self.earliest_date = datetime(year=2019, month=6, day=17, hour=17)
 
     @commands.Cog.listener()
     async def on_ready(self):
