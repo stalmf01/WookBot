@@ -7,7 +7,7 @@ from datetime import datetime
 
 class Spoiler(commands.Cog):
     month_dict = {
-                "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6,
+                "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "Jun": 6,
                 "July": 7, "August": 8, "September": 9, "October": 10, "November": 11, "December": 12
                 }
 
@@ -26,10 +26,13 @@ class Spoiler(commands.Cog):
         while True:
             await asyncio.sleep(20)
             now = datetime.now()
-            if now.minute % 3 == 0:
+            if now.minute % 1 == 0:
                 self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
-                self.entry = self.spoiler_feed.entries[:10]
-                index = 9
+                if len(self.spoiler_feed.entries) < 10:
+                    index = len(self.spoiler_feed.entries)
+                elif len(self.spoiler_feed.entries) >= 10:
+                    self.entry = self.spoiler_feed.entries[:10]
+                    index = 9
                 while index >= 0:
                     unparsed_date = self.entry[index].published.split()
                     day = int(unparsed_date[1])
