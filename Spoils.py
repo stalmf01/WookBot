@@ -26,7 +26,7 @@ class Spoiler(commands.Cog):
         while True:
             await asyncio.sleep(20)
             now = datetime.now()
-            if now.minute % 1 == 0:
+            if now.minute % 3 == 0:
                 self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
                 if len(self.spoiler_feed.entries) < 10:
                     index = len(self.spoiler_feed.entries)
