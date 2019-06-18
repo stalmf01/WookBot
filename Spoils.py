@@ -1,7 +1,7 @@
 from discord.ext import commands
 import feedparser
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 # from html.parser import HTMLParser
 
 
@@ -15,7 +15,8 @@ class Spoiler(commands.Cog):
         self.bot = bot
         self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
         self.entry = self.spoiler_feed.entries
-        self.earliest_date = datetime(year=2019, month=5, day=24, hour=23)
+        self.earliest_date = datetime.now()
+        self.earliest_date += timedelta(hours=3)
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -26,7 +27,7 @@ class Spoiler(commands.Cog):
         while True:
             await asyncio.sleep(20)
             now = datetime.now()
-            if now.minute % 1 == 0:
+            if now.minute % 3 == 0:
                 self.spoiler_feed = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
                 if len(self.spoiler_feed.entries) < 10:
                     index = len(self.spoiler_feed.entries)
@@ -34,15 +35,9 @@ class Spoiler(commands.Cog):
                     self.entry = self.spoiler_feed.entries[:10]
                     index = 9
                 while index >= 0:
-                    unparsed_date = self.entry[index].published.split()
-                    day = int(unparsed_date[1])
-                    month = self.month_dict[unparsed_date[2]]
-                    year = int(unparsed_date[3])
-                    time = unparsed_date[4].split(':')
-                    hour = int(time[0])
-                    min = int(time[1])
-                    sec = int(time[2])
-                    date = datetime(year=year, month=month, day=day, hour=hour, minute=min, second=sec)
+                    date_struct = self.entry[index].published_parsed
+                    date = datetime(year=date_struct.tm_year, month=date_struct.tm_mon, day=date_struct.tm_mday,
+                                    hour=date_struct.tm_hour, minute=date_struct.tm_min, second=date_struct.tm_sec)
                     if date > self.earliest_date:
                         self.earliest_date = date
                         for guild in self.bot.guilds:
