@@ -46,13 +46,15 @@ class Spoiler(commands.Cog):
                                     await channel.send(self.entry[index].link)
                     index -= 1
 
-    """""
     @commands.command()
     async def spoilies(self, ctx):
-        for spoil in self.entry:
-            await ctx.send(spoil.published)
-            print(spoil.published)
-    """
+        spoils = feedparser.parse("https://www.mtgsalvation.com/spoilers.rss")
+        index = len(spoils.entries) - 1
+        print(index)
+        spoil = spoils.entries[index]
+        print(spoil)
+        while index >= 0:
+            await ctx.send(spoil[index].link)
 
 
 def setup(bot):
