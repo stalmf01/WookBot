@@ -10,8 +10,8 @@ with open('Tokens.txt', 'r') as tokens_file:
 
 bot = commands.Bot(command_prefix=prefix, description='Bot of many things')
 
-extensions = ['ElviraBot', 'Birthday', 'EpicRoast', 'Subs']
-# extensions = ['ElviraBot', 'Birthday', 'EpicRoast', 'Subs', 'Spoils']
+extensions = ['Spoils']
+# extensions = ['Birthday', 'EpicRoast', 'Subs']
 for extension in extensions:
     bot.load_extension(extension)
 
