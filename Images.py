@@ -60,3 +60,6 @@ class ImageList:
             self.image_list.remove(self.image_list[self.find_oldest_image()])
         self.save()
         return True
+
+    def __len__(self):
+        return len(self.image_list)
