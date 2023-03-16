@@ -40,20 +40,21 @@ class Spoiler(commands.Cog):
 
     async def poll(self):
         await self.bot.wait_until_ready()
-        self.images = ImageList(self.list_count)
+        self.images = ImageList(self.list_count + 1)
         while self.run:
             await asyncio.sleep(3600)
             # await asyncio.sleep(5)
             geturl = requests.get(self.URL)
             soup = BeautifulSoup(geturl.text, 'html.parser')
             images_html = soup.find_all('img', limit=25 + self.list_count)
-            images_html = images_html[25:]
+            images_html = images_html[24:]
             for image in reversed(images_html):  # start at the end of the list
                 if self.images.add(self.base_url + image.get('src').strip()):
                     # print(self.images)
                     # print(f'New image {self.base_url + image.get("src").strip()}')
                     if len(self.images) >= self.list_count:
                         # print('sending image')
+                        print(self.images)
                         await self.send_image(self.base_url + image.get('src').strip())
                     else:
                         print(f'List is not full {len(self.images)}')

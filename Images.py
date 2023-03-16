@@ -37,7 +37,7 @@ class ImageList:
         oldest_image = self.image_list[0]
         oldest_image_index = 0
         for index, current_image in enumerate(self.image_list):
-            if oldest_image.timestamp < current_image.timestamp:
+            if oldest_image.timestamp > current_image.timestamp:
                 oldest_image = current_image
                 oldest_image_index = index
 
