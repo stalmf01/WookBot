@@ -32,8 +32,8 @@ async def on_ready():
 #     # await ctx.channel.send('pong')
 
 
-@bot.command(name='ping', help='test if the bot is alive')
-async def ping_pong(ctx):
-    ctx.send('pong')
+# @bot.command(name='ping', help='test if the bot is alive')
+# async def ping_pong(ctx):
+#     ctx.send('pong')
 
 bot.run(token)
